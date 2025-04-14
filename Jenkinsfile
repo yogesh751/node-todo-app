@@ -23,35 +23,35 @@ pipeline {
             }
         }
        
-        // stage('Login to Docker Hub') {
-        //     steps {
-        //         // Login to Docker Hub using Jenkins credentials
-        //         sh """
-        //         echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin
-        //         """
-        //     }
-        // }
+        stage('Login to Docker Hub') {
+            steps {
+                // Login to Docker Hub using Jenkins credentials
+                sh """
+                echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin
+                """
+            }
+        }
  
-        // stage('Push Docker Image') {
-        //     steps {
-        //         script {
-        //             // Push the Docker image to Docker Hub
-        //             sh """
-        //             docker push ${IMAGE_NAME}:${DOCKER_TAG}
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Push the Docker image to Docker Hub
+                    sh """
+                    docker push ${IMAGE_NAME}:${DOCKER_TAG}
+                    """
+                }
+            }
+        }
        
-        // stage('Run Docker Container Locally') {
-        //     steps {
-        //         script {
-        //             // Run the Docker container locally
-        //             sh """
-        //             docker run -d -p 8080:8080 ${IMAGE_NAME}:${DOCKER_TAG}
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Run Docker Container Locally') {
+            steps {
+                script {
+                    // Run the Docker container locally
+                    sh """
+                    docker run -d -p 8080:8080 ${IMAGE_NAME}:${DOCKER_TAG}
+                    """
+                }
+            }
+        }
     }
 }
